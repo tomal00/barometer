@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <title>Měřič tlaku</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+</head>
+<body>
+  <div id = "lastEntriesWrapper">
+    <div>Poslední záznamy</div>
+    <table id = "entriesTable">
+    </table>
+  </div>
+  <div id = "controlPanelWrapper">
+    <div>
+      <div>
+        <div>
+          počáteční datum : <input type = "text" id = "from">
+        </div>
+        <div>
+          <div>
+            konečné datum : <input type = "text" id = "to">
+          </div>
+        </div>
+      </div>
+      <button id = "show">Zobrazit</button>
+    </div>
+  </div>
+  <div id = "chartWrapper">
+    <div id = "chartgen">
+
+    </div>
+  </div>
+  <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/fusioncharts.js"></script>
+  <script type="text/javascript" src="js/fusioncharts-jquery-plugin.js"></script>
+  <script type="text/javascript" src="js/socket.io.js"></script>
+  <script type="text/javascript" src="js/script.js"></script>
+</body>
+</html>

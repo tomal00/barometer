@@ -1,0 +1,123 @@
+*{
+  outline: none;
+}
+.cleander{
+  float:none;
+}
+input{
+  border: none;
+}
+body{
+  width: 100vw;
+  height: 100vh;
+  min-width: 1280px;
+  min-height: 720px;
+  margin: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+#controlPanelWrapper{
+  background-color: #333;
+  color:white;
+  width: 80%;
+  height: 15%;
+  position: relative;
+  top: 0;
+  left: 0;
+  min-width: calc(1280px*0.80);
+  min-height: calc(720px*0.15);
+  z-index: 1;
+  border-bottom: 4px solid #247511;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+#controlPanelWrapper > div{
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(50% - 20px);
+}
+#controlPanelWrapper > div > div > div:first-child{
+  vertical-align: top;
+  display: block;
+  position: relative;
+  top: 6.25px;
+}
+#controlPanelWrapper > div > div > div:last-child{
+  display: block;
+  position: relative;
+  top: 18.75px;
+}
+#controlPanelWrapper > div > div > div:last-child > div{
+  float:right;
+}
+#controlPanelWrapper > div > div {
+  vertical-align: top;
+  display: inline-block;
+  height: 70px;
+}
+#controlPanelWrapper > div > button {
+  vertical-align: top;
+  display: inline-block;
+  margin-left: 40px;
+  background-color: #026e00;
+  border: 0;
+  height: 70px;
+  width: 160px;
+  font-size: 30px;
+  color: white;
+  transition: background-color 0.25s;
+}
+#controlPanelWrapper button:hover{
+  background-color: rgb(2, 140, 0)
+}
+#lastEntriesWrapper{
+  z-index: 2;
+  border-left: 4px solid #247511;
+  background-color: #eaf5e9;
+  height: 100%;
+  position: relative;
+  width: 20%;
+  top: 0;
+  right: 0;
+  min-width: calc(1280px*0.2);
+  min-height: 720px;
+  float: right;
+  overflow-y: auto;
+}
+#lastEntriesWrapper div:first-child{
+  text-align: center;
+  margin-top: 20px;
+}
+#chartWrapper{
+  background-color: #fff;
+  width: 80%;
+  height: 85%;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  min-width: calc(1280px*0.80);
+  min-height: calc(720px*0.85);
+}
+#chartWrapper div:first-child{
+  padding: 30px;
+  position: absolute;
+  height: calc(100% - 60px);
+  width: calc(100% - 60px);
+}
+#entriesTable{
+  width: 100%;
+  margin-top: 30px;
+  border-collapse: collapse;
+}
+#entriesTable td:not(:last-child), #entriesTable th:not(:last-child){
+  border-right: 2px groove rgba(219,219,219,0.3);
+}
+#entriesTable td, #entriesTable th{
+  border-bottom: 2px groove rgba(219,219,219,0.3);
+}
+#entriesTable td, #entriesTable th{
+  height: 40px;
+  width: 50%;
+  text-align: center;
+}
