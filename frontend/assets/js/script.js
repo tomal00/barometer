@@ -21,7 +21,10 @@ $('#show').on('click', () => {
 socket.on('update', data => fillTable(JSON.parse(data), data.length < 2));
 
 socket.on('sendChartdata', (data) => {
-
+  if(!JSON.parse(data)) {
+    console.log('kkt')
+    return;
+  }
   $('#chartgen').insertFusionCharts({
     type: 'line',
     width: '100%',
