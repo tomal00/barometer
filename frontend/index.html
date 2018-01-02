@@ -13,19 +13,19 @@
     </table>
   </div>
   <div id = "controlPanelWrapper">
-    <div>
+    <form id = "showForm">
       <div>
-        <div>
-          počáteční datum : <input type = "text" id = "from">
+        <div id = "from">
+          počáteční datum : <input name = "fY" type="number"><input name = "fM" type="number" min="1" max="12"><input name = "fD" type="number" min="1" max="31"><input name = "fH" type="number" min="0" max="23"><input name = "fMM" type="number" min="0" max="59">
         </div>
         <div>
-          <div>
-            konečné datum : <input type = "text" id = "to">
+          <div id = "to">
+            konečné datum : <input name = "tY" type="number"><input name = "tM" type="number" min="1" max="12"><input name = "tD" type="number" min="1" max="31"><input name = "tH" type="number" min="0" max="23"><input name = "tMM" type="number" min="0" max="59">
           </div>
         </div>
       </div>
-      <button id = "show">Zobrazit</button>
-    </div>
+      <input type = "submit" value = "Zobrazit">
+    </form>
   </div>
   <div id = "chartWrapper">
     <div id = "chartgen">

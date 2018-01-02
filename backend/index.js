@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
-PIČO POŘEŠ NĚJAK ENTEROVÁNÍ DATUMŮ NA FRONTENDU NEJLÍP PŘES NĚJAKÝ DROPBOXY PRO Y,M,D A INPUTY PRO TIME
+
 const app = express();
 const server = http.createServer(app);
 const connection = mysql.createConnection({
@@ -19,7 +19,7 @@ app.use(express.static('../frontend/assets'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('*', (req, res) => {
-  res.sendFile('C:/Users/Tomáš/Desktop/pss_rocnikovka/frontend/index.html');
+  res.sendFile('C:/Users/Tom/Desktop/pss_rocnikovka/frontend/index.html');
 });
 io.on('connection', (socket) => {
   connection.query('SELECT * FROM log ORDER BY ID DESC,ID desc LIMIT 12',(error, results, fields) => {
