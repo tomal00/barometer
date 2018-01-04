@@ -39,7 +39,6 @@ const checkDatetimeFormat = (datetime) => {
     throwError('Záznamy z tohoto roku nemůžou existovat!');
     return true;
   }
-  /*
   else if(datetime[1] < 1 || datetime[1] > 12){
     throwError("Tento měsíc neexistuje!");
     return true;
@@ -99,7 +98,7 @@ const checkDatetimeFormat = (datetime) => {
     else {
       return false;
     }
-  }*/
+  }
 }
 
 const throwError = (message) => {
