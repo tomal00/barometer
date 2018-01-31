@@ -27,18 +27,17 @@ io.on('connection', (socket) => {
       socket.emit('connection', "false");
       return;
     }
-    const returnData = [];
-    for(let i = 0; i < results.length; i++) {
-      const splitted = results[i].Datum.toString().split(' ');
-      returnData.push({time: `${splitted[1]} ${splitted[2]} ${splitted[3]}, ${splitted[4]}`, value: results[i].Hodnota});
-    }
+    const returnData = results.map((item) => {
+        const splitted = item.Datum.toString().split(' ');
+        return {time: `${splitted[1]} ${splitted[2]} ${splitted[3]}, ${splitted[4]}`, value: item.Hodnota}
+    });
     socket.emit('update', JSON.stringify(returnData));
   });
   socket.on('requestChartdata', (data) => {
     d = JSON.parse(data);
     console.log(d);
-    let x = d.from.split('-');
-    let y = d.to.split('-');
+    const x = d.from.split('-');
+    const y = d.to.split('-');
     connection.query(`SELECT COUNT(ID) as Count FROM log WHERE Datum >= '${x[0]}-${x[1]}-${x[2]} ${x[3]}:${x[4]}:00' AND Datum < '${y[0]}-${y[1]}-${y[2]} ${y[3]}:${y[4]}:00'`, (error, results, fields) => {
       if(error) {
         socket.emit('sendChartdata', 'false');
