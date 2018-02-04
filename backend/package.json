@@ -15,5 +15,10 @@
     "https-post": "^0.1.1",
     "mysql": "^2.15.0",
     "socket.io": "^2.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.17.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-config-moxy": "^4.2.0"
   }
 }
