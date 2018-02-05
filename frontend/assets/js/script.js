@@ -41,7 +41,12 @@ const checkInput = (y, m, d, h, mn) => {
     if ([y, m, d, h, mn].includes(undefined) || [y, m, d, h, mn].includes('')) {
         throw new Error('Některá z políček nejsou vyplněná!');
     }
-    else if (m < 1 || m > 12) {
+    for (const i of [y, m, d, h, mn]) {
+        if (isNaN(i)) {
+            throw new Error('Jeden z inputů není číslo!');
+        }
+    }
+    if (m < 1 || m > 12) {
         throw new Error(`Tento měsíc neexistuje! (${m})`);
     }
     const maxdays = { _1: '31', _2: '28', _3: '31', _4: '30', _5: '31', _6: '30', _7: '31', _8: '31', _9: '30', _10: '31', _11: '30', _12: '31' };
@@ -55,7 +60,7 @@ const checkInput = (y, m, d, h, mn) => {
     else if (mn < '0' || mn > '59') {
         throw new Error(`Tato minuta neexistuje! ${mn}`);
     }
-    else if (new Date(y, m, d, h, mn) > new Date()) {
+    else if (new Date(y, m - 1, d, h, mn) > new Date()) {
         throw new Error('Záznamy z budoucnosti nemohou existovat!');
     }
 };

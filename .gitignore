@@ -1,2 +1,4 @@
 backend/node_modules
 backend/.eslintrc.json
+backend/lib
+backend/.babelrc

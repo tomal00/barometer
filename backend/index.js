@@ -5,28 +5,21 @@ class InputError extends Error {}
 class DBconnectionError extends Error {}
 class DBcommunicationError extends Error {}
 
-const express = require('express');
-const http = require('http');
-const bodyParser = require('body-parser');
-const mysql = require('mysql');
+import express from 'express';
+import http from 'http';
+import bodyParser from 'body-parser';
+import mysql from 'mysql';
+import regeneratorRuntime from 'regenerator-runtime';
+import cfg from './cfg';
 
-//require('babel-polyfill');
-
-
-//BABEL TI NĚJAK CUCKUJE ERRORY
 const app = express();
 const server = http.createServer(app);
 
 const io = require('socket.io')(server);
 
-const pool = mysql.createPool({
-    host: 'localhost',
-    user: 'root',
-    password: '1a2b3c4d5e',
-    database: 'temperatures',
-});
+const pool = mysql.createPool(cfg);
 
-app.use(express.static('../frontend/assets'));
+app.use(express.static('../../frontend/assets'));
 app.use(bodyParser.urlencoded({
     extended: true,
 }));
@@ -55,8 +48,8 @@ io.on('connection', async (socket) => {
             });
             const rowCount = await new Promise((res, rej) => {
                 connection.query(`SELECT COUNT(ID) as Count FROM log
-                WHERE Datum >= '${x[0]}-${x[1]}-${x[2]} ${x[3]}:${x[4]}:00'
-                AND Datum < '${y[0]}-${y[1]}-${y[2]} ${y[3]}:${y[4]}:00'`, (err, results) => {
+                WHERE Datum >= '${mysql.excape(x[0])}-${mysql.excape(x[1])}-${mysql.excape(x[2])} ${mysql.excape(x[3])}:${mysql.excape(x[4])}:00'
+                AND Datum < '${mysql.excape(y[0])}-${mysql.excape(y[1])}-${mysql.excape(y[2])} ${mysql.excape(y[3])}:${mysql.excape(y[4])}:00'`, (err, results) => {
                     if (err) {
                         rej(new DBcommunicationError());
                     }
@@ -87,11 +80,12 @@ io.on('connection', async (socket) => {
             (SELECT @row := @row +1 AS rownum, log.* FROM
                 (SELECT @row := 0) r, log) ranked
                 WHERE rownum % ${2 ** i} = 0
-                AND Datum >= '${x[0]}-${x[1]}-${x[2]} ${x[3]}:${x[4]}:00'
-                AND Datum < '${y[0]}-${y[1]}-${y[2]} ${y[3]}:${y[4]}:00')`;
+                AND Datum >= '${mysql.excape(x[0])}-${mysql.excape(x[1])}-${mysql.excape(x[2])} ${mysql.excape(x[3])}:${mysql.excape(x[4])}:00'
+                AND Datum < '${mysql.excape(y[0])}-${mysql.excape(y[1])}-${(y[2])} ${mysql.excape(y[3])}:${mysql.excape(y[4])}:00'`;
             const rows = await new Promise((res, rej) => {
                 connection.query(query, (err, results) => {
                     if (err) {
+                        console.log(err);
                         rej(new DBcommunicationError());
                     }
                     res(results);
@@ -207,7 +201,12 @@ const checkInput = (y, m, d, h, mn) => {
     if ([y, m, d, h, mn].includes(undefined) || [y, m, d, h, mn].includes('')) {
         throw new InputError('Některá z políček nejsou vyplněná!');
     }
-    else if (m < 1 || m > 12) {
+    for (const i of [y, m, d, h, mn]) {
+        if (isNaN(i)) {
+            throw new InputError('Jeden z inputů není číslo!');
+        }
+    }
+    if (m < 1 || m > 12) {
         throw new InputError(`Tento měsíc neexistuje! (${m})`);
     }
     const maxdays = { _1: '31', _2: '28', _3: '31', _4: '30', _5: '31', _6: '30', _7: '31', _8: '31', _9: '30', _10: '31', _11: '30', _12: '31' };
@@ -221,7 +220,7 @@ const checkInput = (y, m, d, h, mn) => {
     else if (mn < '0' || mn > '59') {
         throw new InputError(`Tato minuta neexistuje! ${mn}`);
     }
-    else if (new Date(y, m, d, h, mn) > new Date()) {
+    else if (new Date(y, m - 1, d, h, mn) > new Date()) {
         throw new InputError('Záznamy z budoucnosti nemohou existovat!');
     }
 };
