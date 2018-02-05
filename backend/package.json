@@ -9,16 +9,25 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "express-react-views": "^0.10.4",
     "https-post": "^0.1.1",
     "mysql": "^2.15.0",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "transform-runtime": "0.0.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
     "eslint": "^4.17.0",
     "eslint-config-google": "^0.9.1",
     "eslint-config-moxy": "^4.2.0"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
   }
 }
