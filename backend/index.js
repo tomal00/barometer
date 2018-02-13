@@ -25,10 +25,14 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('*', (req, res) => {
-    res.sendFile('C:/Users/Tom/Desktop/pss_rocnikovka/frontend/index.html');
+    //res.sendFile('C:/Users/Tom/Desktop/pss_rocnikovka/frontend/index.html');
+    res.sendFile('C:\\Users\\tom\\Desktop\\pss_rocnikovka\\frontend\\experimental\\index.html');
 });
 io.on('connection', async (socket) => {
+    socket.emit('test', 'KOKOT');
+    socket.on('testtest', (data) => console.log(data));
     socket.on('requestChartdata', async (data) => {
+        console.log("requested")
         const d = JSON.parse(data);
 
         const x = d.from.split('-');
@@ -99,8 +103,8 @@ io.on('connection', async (socket) => {
                 const splitted = rows[i].Datum.toString().split(' ');
 
                 returnData.push({
-                    label: `${splitted[1]} ${splitted[2]} ${splitted[3]}, ${splitted[4]}`,
-                    value: rows[i].Hodnota,
+                    date: `${splitted[1]}/${splitted[2]}/${splitted[3]}, ${splitted[4]}`,
+                    hodnota: rows[i].Hodnota,
                 });
             }
             socket.emit('sendChartdata', JSON.stringify(returnData));
@@ -122,6 +126,7 @@ io.on('connection', async (socket) => {
     });
 
     try {
+        console.log("before conn")
         const connection = await new Promise((res, rej) => {
             pool.getConnection((err, connection) => {
                 if (err) {
@@ -140,6 +145,7 @@ io.on('connection', async (socket) => {
         });
 
         connection.release();
+        console.log("releasin")
         socket.emit('update', JSON.stringify(
             rows.map((item) => {
                 const splitted = item.Datum.toString().split(' ');

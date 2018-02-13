@@ -1,0 +1,30 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "react.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "circular-dependency-plugin": "^4.4.0",
+    "css-loader": "^0.28.9",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-input-placeholder": "^1.2.0",
+    "react-input-range": "^1.3.0",
+    "recharts": "^1.0.0-beta.10",
+    "socket.io-client": "^2.0.4",
+    "style-loader": "^0.20.1"
+  },
+  "devDependencies": {
+    "webpack": "^3.10.0"
+  }
+}

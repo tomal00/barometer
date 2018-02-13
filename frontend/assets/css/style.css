@@ -15,6 +15,10 @@ input{
         flex-direction: column;
         height: 100vh;
     }
+    body > div {
+        height: 100%;
+        width: 100%;
+    }
     .controlPanelWrapper{
         display: flex;
         flex-direction: column;
@@ -41,7 +45,7 @@ input{
         order: 3;
         flex-grow: 1;
     }
-    .showForm{
+    .controlPanel{
         align-self: center;
         margin: auto;
         display: flex;
@@ -56,6 +60,10 @@ input{
         height: 100vh;
         margin: 0;
         font-family: 'Source Sans Pro', sans-serif;
+    }
+    body > div {
+        height: 100%;
+        width: 100%;
     }
     .controlPanelWrapper{
         background-color: #333;
@@ -94,7 +102,7 @@ input{
         left: 0;
         min-height: calc(720px*0.85);
     }
-    .showForm{
+    .controlPanel{
         position: relative;
         left: 50%;
         transform: translateX(-50%);
@@ -104,7 +112,7 @@ input{
         align-items: center;
     }
 }
-.showForm > div:first-child {
+.controlPanel > div:first-child {
     display: flex;
     flex-direction: column;
     justify-content: space-around;

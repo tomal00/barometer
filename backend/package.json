@@ -15,8 +15,12 @@
     "express": "^4.16.2",
     "fast-async": "^6.3.0",
     "mysql": "^2.15.0",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-router": "^4.2.0",
     "regenerator-runtime": "^0.11.1",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "webpack-dev-server": "^2.11.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
