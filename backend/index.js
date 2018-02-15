@@ -32,7 +32,6 @@ io.on('connection', async (socket) => {
     socket.emit('test', 'KOKOT');
     socket.on('testtest', (data) => console.log(data));
     socket.on('requestChartdata', async (data) => {
-        console.log("requested")
         const d = JSON.parse(data);
 
         const x = d.from.split('-');
@@ -51,10 +50,9 @@ io.on('connection', async (socket) => {
                 });
             });
             const rowCount = await new Promise((res, rej) => {
-                connection.query(`SELECT COUNT(ID) as Count FROM log
-                WHERE Datum >= '${mysql.excape(x[0])}-${mysql.excape(x[1])}-${mysql.excape(x[2])} ${mysql.excape(x[3])}:${mysql.excape(x[4])}:00'
-                AND Datum < '${mysql.excape(y[0])}-${mysql.excape(y[1])}-${mysql.excape(y[2])} ${mysql.excape(y[3])}:${mysql.excape(y[4])}:00'`, (err, results) => {
+                connection.query('SELECT COUNT(ID) as Count FROM log WHERE Datum >= ? AND Datum < ?', [`${x[0]}-${x[1]}-${x[2]} ${x[3]}:${x[4]}:00`, `${y[0]}-${y[1]}-${y[2]} ${y[3]}:${y[4]}:00`], (err, results) => {
                     if (err) {
+                        console.log(err)
                         rej(new DBcommunicationError());
                     }
                     res(results);
@@ -84,8 +82,8 @@ io.on('connection', async (socket) => {
             (SELECT @row := @row +1 AS rownum, log.* FROM
                 (SELECT @row := 0) r, log) ranked
                 WHERE rownum % ${2 ** i} = 0
-                AND Datum >= '${mysql.excape(x[0])}-${mysql.excape(x[1])}-${mysql.excape(x[2])} ${mysql.excape(x[3])}:${mysql.excape(x[4])}:00'
-                AND Datum < '${mysql.excape(y[0])}-${mysql.excape(y[1])}-${(y[2])} ${mysql.excape(y[3])}:${mysql.excape(y[4])}:00'`;
+                AND Datum >= '${(x[0])}-${(x[1])}-${(x[2])} ${(x[3])}:${(x[4])}:00'
+                AND Datum < '${(y[0])}-${(y[1])}-${(y[2])} ${(y[3])}:${(y[4])}:00'`;
             const rows = await new Promise((res, rej) => {
                 connection.query(query, (err, results) => {
                     if (err) {
@@ -120,7 +118,7 @@ io.on('connection', async (socket) => {
                 socket.emit('DB_error', 'Chyba při komunikaci s databází.');
             }
             else {
-                socket.emmit('DB_error', 'Neznámá chyba');
+                socket.emit('DB_error', 'Neznámá chyba');
             }
         }
     });

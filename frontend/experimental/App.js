@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import socketioHandler from './socketioHandler';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
+const socketMethods = [(msg)=>alert(msg), (msg)=>alert(msg)];
+
 class DateTime extends React.Component {
     constructor(props) {
         super(props);
@@ -69,15 +71,11 @@ class EntriesTable extends React.Component {
     constructor(props) {
         super(props);
         this.handleUpdate = this.handleUpdate.bind(this);
+        socketMethods.push(this.handleUpdate);
         this.state = {tableData: []}
     }
     handleUpdate(data) {
-        console.log("data logged")
-        const dataParsed = [];
-        for(const i of JSON.parse(data)) {
-            dataParsed.push(<TableEntry {...i} />);
-        }
-        this.setState({tableData: dataParsed});
+        this.setState({tableData: JSON.parse(data).map((itm) => <TableEntry {...itm} />)});
     }
     render() {
         return <table className = "entriesTable">{this.state.tableData}</table>
@@ -89,24 +87,27 @@ class Chart extends React.Component {
         super(props);
         this.onDataReceived = this.onDataReceived.bind(this);
         this.state = {data: []}
+        socketMethods.push(this.onDataReceived);
     }
     onDataReceived(data) {
-        this.setState({data});
+        this.setState({data: JSON.parse(data)});
     }
     render() {
         if(this.state.data.length){
-            <div className = "chartgen">
-                <ResponsiveContainer width="100%" height="100%" position="relative">
-                    <LineChart data={this.state.data} >
-                        <XAxis dataKey="date"/>
-                        <YAxis/>
-                        <CartesianGrid strokeDasharray="3 3"/>
-                        <Tooltip/>
-                        <Legend />
-                        <Line type="monotone" dataKey="hodnota" stroke="#8884d8" activeDot={{r: 8}}/>
-                    </LineChart>
-                </ResponsiveContainer>
-            </div>
+            return (
+                <div className = "chartgen">
+                    <ResponsiveContainer width="100%" height="100%" position="relative">
+                        <LineChart data={this.state.data} >
+                            <XAxis dataKey="date"/>
+                            <YAxis/>
+                            <CartesianGrid strokeDasharray="3 3"/>
+                            <Tooltip/>
+                            <Legend />
+                            <Line type="monotone" dataKey="hodnota" stroke="#8884d8" activeDot={{r: 8}}/>
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
+            )
         }
         return null;
     }
@@ -122,8 +123,8 @@ const TimeInput = (props) => {
 
 const TableEntry = (props) => (
         <tr>
-            <th>props.time</th>
-            <th>props.value</th>
+            <th>{props.time}</th>
+            <th>{props.value}</th>
         </tr>
 )
 
@@ -141,5 +142,7 @@ const App = () => (
         </div>
     </React.Fragment>
 )
-socketioHandler.setSocket('http://localhost:80', (msg)=>alert(msg), (msg)=>alert(msg), EntriesTable.handleUpdate, Chart.onDataReceived);
 ReactDOM.render(<App />, document.getElementById('root'));
+socketioHandler.setSocket('http://localhost:80', ...socketMethods);
+
+export default socketMethods;
