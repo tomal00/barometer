@@ -1,6 +1,3 @@
-/*eslint brace-style: ["error", "1tbs", { "allowSingleLine": true }]*/
-/*eslint brace-style: ["error", "stroustrup"]*/
-
 class InputError extends Error {}
 class DBconnectionError extends Error {}
 class DBcommunicationError extends Error {}
@@ -143,7 +140,6 @@ io.on('connection', async (socket) => {
         });
 
         connection.release();
-        console.log("releasin")
         socket.emit('update', JSON.stringify(
             rows.map((item) => {
                 const splitted = item.Datum.toString().split(' ');
@@ -190,13 +186,13 @@ const updateClients = async () => {
     }
     catch (err) {
         if (err instanceof DBconnectionError) {
-            console.log('conn');
+            socket.emit('DB_error', 'Nebylo možné načíst poslední záznamy z důvodu selhání se připojit k databázi');
         }
         else if (err instanceof DBcommunicationError) {
-            console.log('comm');
+            socket.emit('DB_error', 'Nebylo možné načíst poslední záznamy z důvodu chyby při komunikaci s databází');
         }
         else {
-            console.log('idk');
+            socket.emit('DB_error', 'Nebylo možné načíst poslední záznamy kvůli neznámé chybě');
         }
     }
 };
