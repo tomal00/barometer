@@ -8,7 +8,7 @@ module.exports = {
         main: './experimental/main.js'
     },
     output: {
-        path: __dirname,
+        path: __dirname + '/assets/js',
         filename: '[name].min.js'
     },
     module: {
@@ -17,7 +17,7 @@ module.exports = {
                 test: /.jsx?$/,
                 loader: 'babel-loader',
                 query: {
-                    presets: ['react', 'es2017','es2016','es2015']
+                    presets: ['react', 'es2015']
                 },
                 exclude: [/node_modules/, './assets/js/socket.io.js', 'socket.io-client']
             }

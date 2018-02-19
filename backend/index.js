@@ -21,10 +21,9 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('*', (req, res) => {
-    res.sendFile('C:\\Users\\tom\\Desktop\\pss_rocnikovka\\frontend\\experimental\\index.html');
+    res.sendFile(require('path').resolve('../../frontend/experimental/index.html'));
 });
 io.on('connection', async (socket) => {
-    socket.emit('test', 'KOKOT');
     socket.on('requestChartdata', async (data) => {
         const d = JSON.parse(data);
 

@@ -75,7 +75,7 @@ const startApp = (inputEmitter) => {
             this.state = {data: []}
         }
         handleUpdate(data) {
-            this.setState({data: JSON.parse(data).concat(this.state.data)})
+            this.setState({data: JSON.parse(data).filter((itm) => !this.state.data.map((itm1) => itm1.date).includes(itm.date)).concat(this.state.data)});
         }
         render() {
             return <table className = "entriesTable"><tbody>{this.state.data.map((itm) => <TableEntry {...itm} key = {itm.time}/>)}</tbody></table>
