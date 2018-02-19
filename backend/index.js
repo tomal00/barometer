@@ -6,7 +6,6 @@ import express from 'express';
 import http from 'http';
 import bodyParser from 'body-parser';
 import mysql from 'mysql';
-import regeneratorRuntime from 'regenerator-runtime';
 import cfg from './cfg';
 
 const app = express();
@@ -56,20 +55,22 @@ io.on('connection', async (socket) => {
                 });
             });
 
-            let i = 0;
+            let i = 1;
 
-            if (rowCount[0].Count && rowCount[0].Count > 50) {
-                let j = rowCount[0].Count;
+            if (rowCount[0].Count > 50) {
+                if (rowCount[0].Count % 2 === 0) {
+                    let j = rowCount[0].Count;
 
-                for (; j > 50; i += 1) {
-                    j /= 2;
+                    for (; j > 50; i += 1) {
+                        j /= 2;
+                    }
                 }
-            }
-            else {
-                let j = rowCount[0].Count - 1;
+                else {
+                    let j = rowCount[0].Count - 1;
 
-                for (; j > 50; i += 1) {
-                    j /= 2;
+                    for (; j > 50; i += 1) {
+                        j /= 2;
+                    }
                 }
             }
             const query = `SELECT * FROM
