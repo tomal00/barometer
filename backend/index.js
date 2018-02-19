@@ -25,7 +25,6 @@ app.get('*', (req, res) => {
 });
 io.on('connection', async (socket) => {
     socket.emit('test', 'KOKOT');
-    socket.on('testtest', (data) => console.log(data));
     socket.on('requestChartdata', async (data) => {
         const d = JSON.parse(data);
 
@@ -39,7 +38,6 @@ io.on('connection', async (socket) => {
             const connection = await new Promise((res, rej) => {
                 pool.getConnection((err, connection) => {
                     if (err) {
-                        console.log(err)
                         rej(new DBconnectionError());
                     }
                     res(connection);
@@ -48,7 +46,6 @@ io.on('connection', async (socket) => {
             const rowCount = await new Promise((res, rej) => {
                 connection.query('SELECT COUNT(ID) as Count FROM log WHERE Datum >= ? AND Datum < ?', [`${x[0]}-${x[1]}-${x[2]} ${x[3]}:${x[4]}:00`, `${y[0]}-${y[1]}-${y[2]} ${y[3]}:${y[4]}:00`], (err, results) => {
                     if (err) {
-                        console.log(err)
                         rej(new DBcommunicationError());
                     }
                     res(results);
@@ -82,7 +79,6 @@ io.on('connection', async (socket) => {
             const rows = await new Promise((res, rej) => {
                 connection.query(query, (err, results) => {
                     if (err) {
-                        console.log(err);
                         rej(new DBcommunicationError());
                     }
                     res(results);
@@ -119,11 +115,9 @@ io.on('connection', async (socket) => {
     });
 
     try {
-        console.log("before conn")
         const connection = await new Promise((res, rej) => {
             pool.getConnection((err, connection) => {
                 if (err) {
-                    console.log(err)
                     rej(new DBconnectionError());
                 }
                 res(connection);
