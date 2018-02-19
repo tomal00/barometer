@@ -72,13 +72,13 @@ const startApp = (inputEmitter) => {
             super(props);
             this.handleUpdate = this.handleUpdate.bind(this);
             socketListeners.logEntry = this.handleUpdate;
-            this.state = {tableData: []}
+            this.state = {data: []}
         }
         handleUpdate(data) {
-            this.setState({tableData: JSON.parse(data).map((itm) => <TableEntry {...itm} key = {itm.time}/>)});
+            this.setState({data: JSON.parse(data).concat(this.state.data)})
         }
         render() {
-            return <table className = "entriesTable"><tbody>{this.state.tableData}</tbody></table>
+            return <table className = "entriesTable"><tbody>{this.state.data.map((itm) => <TableEntry {...itm} key = {itm.time}/>)}</tbody></table>
         }
     }
 
@@ -96,10 +96,10 @@ const startApp = (inputEmitter) => {
             if(this.state.data.length){
                 return (
                     <div className = "chartgen">
-                        <ResponsiveContainer width="100%" height="100%" position="relative">
-                            <LineChart data={this.state.data} >
-                                <XAxis dataKey="date"/>
-                                <YAxis/>
+                        <ResponsiveContainer width="100%" height="100%" position="relative" >
+                            <LineChart data={this.state.data} margin = {{top: 40, left: 140}}>
+                                <XAxis dataKey="date" />
+                                <YAxis unit = "mBar" domain = {[Math.min(this.state.data.map((itm) => itm.hodnota)), Math.max(this.state.data.map((itm) => itm.hodnota))]}/>
                                 <CartesianGrid strokeDasharray="3 3"/>
                                 <Tooltip/>
                                 <Legend />

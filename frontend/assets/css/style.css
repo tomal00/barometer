@@ -160,7 +160,6 @@ input{
     text-align: center;
 }
 .chartgen{
-    padding: 30px;
     position: relative;
     height: calc(100% - 60px);
     width: calc(100% - 60px);

@@ -22,7 +22,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('*', (req, res) => {
-    //res.sendFile('C:/Users/Tom/Desktop/pss_rocnikovka/frontend/index.html');
     res.sendFile('C:\\Users\\tom\\Desktop\\pss_rocnikovka\\frontend\\experimental\\index.html');
 });
 io.on('connection', async (socket) => {
@@ -41,6 +40,7 @@ io.on('connection', async (socket) => {
             const connection = await new Promise((res, rej) => {
                 pool.getConnection((err, connection) => {
                     if (err) {
+                        console.log(err)
                         rej(new DBconnectionError());
                     }
                     res(connection);
@@ -58,10 +58,7 @@ io.on('connection', async (socket) => {
 
             let i = 0;
 
-            if (rowCount[0].Count < 50) {
-                console.log('stfulintr');
-            }
-            else if (rowCount[0].Count) {
+            if (rowCount[0].Count && rowCount[0].Count > 50) {
                 let j = rowCount[0].Count;
 
                 for (; j > 50; i += 1) {
@@ -125,6 +122,7 @@ io.on('connection', async (socket) => {
         const connection = await new Promise((res, rej) => {
             pool.getConnection((err, connection) => {
                 if (err) {
+                    console.log(err)
                     rej(new DBconnectionError());
                 }
                 res(connection);
@@ -180,19 +178,22 @@ const updateClients = async () => {
             });
         });
         const splitted = row[0].Datum.toString().split(' ');
+        const splittedTime = splitted[4].split(':');
 
+        if (new Date(splitted[3], splitted[1], splitted[2], splittedTime[0], splittedTime[1], splittedTime[2]).getTime() > (new Date().getTime() - (1000 * 60 * 10))) {
+            io.sockets.emit('update', JSON.stringify([{ time: `${splitted[1]} ${splitted[2]} ${splitted[3]}, ${splitted[4]}`, value: row[0].Hodnota }]));
+        }
         connection.release();
-        io.sockets.emit('update', JSON.stringify({ time: `${splitted[1]} ${splitted[2]} ${splitted[3]}, ${splitted[4]}`, value: row[0].Hodnota }));
     }
     catch (err) {
         if (err instanceof DBconnectionError) {
-            socket.emit('DB_error', 'Nebylo možné načíst poslední záznamy z důvodu selhání se připojit k databázi');
+            console.log(err);
         }
         else if (err instanceof DBcommunicationError) {
-            socket.emit('DB_error', 'Nebylo možné načíst poslední záznamy z důvodu chyby při komunikaci s databází');
+            console.log(err);
         }
         else {
-            socket.emit('DB_error', 'Nebylo možné načíst poslední záznamy kvůli neznámé chybě');
+            console.log(err);
         }
     }
 };
@@ -226,3 +227,4 @@ const checkInput = (y, m, d, h, mn) => {
 };
 
 server.listen(80);
+setInterval(updateClients, 1000 * 60 * 10);
