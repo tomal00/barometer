@@ -1,0 +1,31 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+.controlPanelWrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    order: 1;
+    min-height: 160px;
+
+    .controlPanel {
+        align-self: center;
+        margin: auto;
+    }
+}
+.chartWrapper{
+    width: 100%;
+    height: 400px;
+    order: 2;
+}
+.lastEntriesWrapper{
+    width: 100%;
+    order: 3;
+    flex-grow: 1;
+
+    div:first-child{padding-top: 20px;}
+    .entriesTable{
+        border-bottom: 4px solid #247511;
+    }
+}

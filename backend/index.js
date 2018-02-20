@@ -29,6 +29,14 @@ io.on('connection', async (socket) => {
 
         const x = d.from.split('-');
         const y = d.to.split('-');
+        for(let i = 3; i < 5; i++) {
+            if(x[i].length === 1) {
+                x[i] = `0${x[i]}`
+            }
+            if(y[i].length === 1) {
+                y[i] = `0${y[i]}`
+            }
+        }
 
         try {
             checkInput(...x);
