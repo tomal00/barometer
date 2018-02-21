@@ -5,7 +5,7 @@ var CircularDependencyPlugin = require('circular-dependency-plugin')
 module.exports = {
     target: 'web',
     entry: {
-        main: './experimental/main.js'
+        main: './src/js/main.js',
     },
     output: {
         path: __dirname + '/assets/js',
@@ -19,7 +19,7 @@ module.exports = {
                 query: {
                     presets: ['react', 'es2015']
                 },
-                exclude: [/node_modules/, './assets/js/socket.io.js', 'socket.io-client']
+                exclude: [/node_modules/, 'socket.io-client']
             }
         ]
     },

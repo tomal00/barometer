@@ -1,5 +1,7 @@
 backend/node_modules
 backend/.eslintrc.json
-backend/lib
-frontend/oldshit
+backend/.eslintignore
+backend/compiled
 frontend/node_modules
+frontend/assets/css/*
+frontend/assets/js/*

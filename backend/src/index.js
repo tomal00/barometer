@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.get('*', (req, res) => {
-    res.sendFile(require('path').resolve('../../frontend/experimental/index.html'));
+    res.sendFile(require('path').resolve('../../frontend/index.html'));
 });
 io.on('connection', async (socket) => {
     socket.on('requestChartdata', async (data) => {
