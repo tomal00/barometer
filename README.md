@@ -71,12 +71,12 @@ to connect and maintain connection with your MySQL database.
 
 ## Deployment
 
-To run the Web App, simply navigate yourself to the root directory of the repo and the command below.
+To run the Web App and barometer, simply navigate yourself to the root directory of the repo and the command below.
 (this process may take up to several minutes)
 ```
 bash setup.sh
 ```
-The script will launch http server on the port specified in configuration and begin writing logs in to the database.
+The script will launch http server on the port specified in configuration and the barometer will begin writing logs in to the database.
 
 ## Built With
 
