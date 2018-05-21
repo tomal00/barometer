@@ -1,0 +1,6 @@
+web/backend/node_modules
+web/backend/.eslintrc.json
+web/backend/.eslintignore
+web/frontend/.eslintrc
+web/frontend/.sass-cache
+web/frontend/node_modules

@@ -1,0 +1,105 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+@media screen and (max-width: 1280px) {
+    @import 'mobile';
+}
+@media screen and (min-width: 1280px) {
+    @import 'desktop';
+}
+* {
+    outline: none;
+}
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    margin: 0;
+    height: 100vh;
+    min-width: 488px;
+    & > div {
+        height: 100%;
+        width: 100%;
+    }
+}
+.cleaner {
+    clear: both;
+}
+input {
+    border: none;
+}
+.controlPanelWrapper{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-bottom: 4px solid #247511;
+    color: white;
+    background-color: #333;
+
+    .controlPanel {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+        & > div {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 70px;
+        }
+        & > input {
+            margin-left: 20px;
+            background-color: #026e00;
+            border: 0;
+            height: 70px;
+            width: 160px;
+            font-size: 30px;
+            color: white;
+            transition: background-color 0.25s;
+            &:hover {background: rgb(2, 140, 0);}
+        }
+    }
+}
+.lastEntriesWrapper {
+    background-color: #eaf5e9;
+
+    div:first-child {
+        text-align: center;
+    }
+    .entriesTable{
+        width: 100%;
+        margin-top: 30px;
+        border-collapse: collapse;
+
+        td, th {
+            height: 40px;
+            width: 50%;
+            text-align: center;
+            border-bottom: 2px groove rgba(219,219,219,0.3);
+
+            &:not(:last-child) {
+                border-right: 2px groove rgba(219,219,219,0.3);
+            }
+        }
+    }
+}
+.chartWrapper {
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    align-content: stretch;
+
+
+    .chartgen {
+        position: relative;
+        height: calc(100% - 60px);
+        width: 1px;
+        flex-grow: 2;
+    }
+
+    .offsetSlider{
+        transform: rotate(270deg);
+        padding: 30 0px;
+    }
+}
