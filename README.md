@@ -71,7 +71,7 @@ to connect and maintain connection with your MySQL database.
 
 ## Deployment
 
-To run the Web App, simply navigate yourself to the root directory of the repo and run:
+To run the Web App, simply navigate yourself to the root directory of the repo and the command below.
 (this process may take up to several minutes)
 ```
 bash setup.sh
