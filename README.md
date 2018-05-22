@@ -71,7 +71,7 @@ to connect and maintain connection with your MySQL database.
 
 ## Deployment
 
-To run the Web App and barometer, simply navigate yourself to the root directory of the repo and execute the command below.
+To run the Web App and barometer on your raspberry pi, simply navigate yourself to the root directory of the repo and execute the command below.
 (the following process may take up to several minutes)
 ```
 bash setup.sh
