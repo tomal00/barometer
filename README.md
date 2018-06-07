@@ -6,7 +6,6 @@ A simple barometer using raspberry pi with Sense Hat. GUI in the form of a Web A
 ### HW Prerequisites
 * [Sense Hat](https://www.raspberrypi.org/products/sense-hat/) add-on board
 * A device compatible with the Sense Hat (e.g. [Raspberry pi 3-B](https://www.raspberrypi.org/products/raspberry-pi-3-model-b/))
-* A MySQL database, where you will store the data from the barometer
 
 
 ### SW Prerequisites
@@ -28,6 +27,7 @@ https://babeljs.io/docs/usage/cli/
 https://www.python.org/downloads/release/python-2713/
 https://docs.python.org/2.7/installing/index.html
 ```
+* MySQL database, where you will store the data from the barometer
 
 
 ## Getting Started
