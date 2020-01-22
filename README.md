@@ -35,7 +35,7 @@ https://docs.python.org/2.7/installing/index.html
 First of all, clone the repo
 
 ```
-git clone https://github.com/Kendaboi/pss_rocnikovka.git
+git clone https://github.com/tomal00/pss_rocnikovka.git
 ```
 Now you can either decide to run the barometer and the web server on your Sense Hat-compatible device or
 to separate the repo in two and move the script in the 'raspberry' directory to your Sense-Hat-compatible device
@@ -94,7 +94,7 @@ The script will launch http server on the port specified in configuration and th
 
 ## Authors
 
-* **Tomáš Malec** - [Kendaboi](https://github.com/Kendaboi)
+* **Tomáš Malec** - [tomal00](https://github.com/tomal00)
 
 
 ## License
