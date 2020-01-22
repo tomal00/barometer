@@ -1,4 +1,4 @@
-# PSS - Ročníková práce
+# Barometer with web UI
 
 A simple barometer using raspberry pi with Sense Hat. GUI in the form of a Web App included.
 
